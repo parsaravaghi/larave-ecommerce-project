@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Interfaces\Services\UserServiceInterface;
 use Illuminate\Console\Command;
+use Illuminate\Database\UniqueConstraintViolationException;
 
 class createSuperUser extends Command
 {
@@ -19,12 +20,22 @@ class createSuperUser extends Command
 
     public function handle()
     {
-        $this->userService->createUser([
-            "username" => env("SUPERUSER_NAME") ,
-            "password" => env("SUPERUSER_password") ,
-            "email" => env("SUPERUSER_EMAIL") ,
-            "role" => 2 ,
-            "is_verified" => true
-        ]);
+        $username = $this->ask("username : ");
+        $password = $this->ask("password : ");
+        $email = $this->ask("email : ");
+        
+        try {
+            $this->userService->createUser([
+                "username" => $username ,
+                "password" => $password ,
+                "email" => $email ,
+                "role" => 2 ,
+                "is_verified" => true
+            ]);
+        } 
+        catch (UniqueConstraintViolationException $e) 
+        {
+            $this->error("username or email is used before! ");
+        }
     }
 }
