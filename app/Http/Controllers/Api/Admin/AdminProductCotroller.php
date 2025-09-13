@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Product\AdminProductEditRequest;
-use App\Http\Requests\Admin\Product\AdminProductRemoveRequest;
+use App\Http\Requests\Admin\Product\AdminProductDeleteRequest;
 use App\Http\Requests\Admin\Product\AdminProductStoreRequest;
+use App\Http\Requests\Admin\Product\AdminProductUpdateRequest;
 use App\Interfaces\Services\ProductServiceInterface;
 use App\Interfaces\Services\UserServiceInterface;
 
@@ -29,31 +29,32 @@ class AdminProductCotroller extends Controller
             "status" => true ,
             "message" => "Product added successfully" ,
             "product" => $product
-        ]);
+        ] , 202);
     }
 
-    public function edit(AdminProductEditRequest $request)
+    public function update(AdminProductUpdateRequest $request)
     {
-        // Edit product 
+        // update product 
         $updatedProduct = $this->productService->updateOne(
             $request->validated() , 
             $request->route('id')
         );
 
-        // 
+        // success response
         return response()->json([
             "status" => true ,
             "message" => "$updatedProduct product(s) updated"
-        ]);
+        ] , 201);
     }
 
-    public function remove(AdminProductRemoveRequest $request)
+    public function delete(AdminProductDeleteRequest $request)
     {
+        // Delete the product and find how many products has been deleted
         $deletedProduct = $this->productService->deleteOne($request->route('id'));
 
         return response()->json([
             "status" => true ,
             "message" => "$deletedProduct product(s) deleted"
-        ]);
+        ] , 201);
     }
 }
