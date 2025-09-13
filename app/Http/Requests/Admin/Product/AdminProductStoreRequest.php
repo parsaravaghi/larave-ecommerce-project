@@ -25,9 +25,9 @@ class AdminProductStoreRequest extends FormRequest
             "description" => "required|string|max:300" , 
             "image_url" => "required|url",
             "price" => "required|numeric|digits_between:1,10" ,
-            "products_count" => "required|numeric|digits_between:1," ,
-            "sales_count" => "required|numeric|digits_between:1," ,
-            "category_id" => "nullable|numeric|digits_between:1,|exist:categories,id" ,
+            "products_count" => "required|numeric|digits_between:1,10" ,
+            "sales_count" => "required|numeric|digits_between:1,10" ,
+            "category_id" => "nullable|numeric|digits_between:1,10|exist:categories,id" ,
         ];
     }
 
