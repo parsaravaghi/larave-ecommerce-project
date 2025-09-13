@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdminProductEditRequest extends FormRequest
+class AdminProductUpdateRequest extends FormRequest
 {
     public function __construct(
         private UserServiceInterface $userService
@@ -21,14 +21,14 @@ class AdminProductEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id" => "required|numeric|max:10000000" ,
+            "id" => "required|numeric|digits:10" ,
             "title" => "string|max:50|unique:products" , 
             "description" => "string|max:300" , 
             "image_url" => "url",
-            "price" => "numeric|max:1000000000" ,
-            "products_count" => "numeric|max:1000000" ,
-            "sales_count" => "numeric|max:10000000" ,
-            "category_id" => "numeric|nullable|max:10000000" ,
+            "price" => "numeric|digits:10" ,
+            "products_count" => "numeric|m" ,
+            "sales_count" => "numeric|digits:10" ,
+            "category_id" => "numeric|nullable|digits:10" ,
         ];
     }
 
@@ -50,6 +50,6 @@ class AdminProductEditRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $this->merge(["id" => $this->route('id')]);
+        $this->replace(["id" => $this->route('id')]);
     }
 }

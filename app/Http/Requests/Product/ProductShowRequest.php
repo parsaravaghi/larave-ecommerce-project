@@ -14,7 +14,7 @@ class ProductShowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id" => "numeric|max:10000000"
+            "id" => "numeric|digits:10"
         ];
     }
 

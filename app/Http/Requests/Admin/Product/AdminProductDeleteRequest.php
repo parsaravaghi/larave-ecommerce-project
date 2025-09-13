@@ -6,7 +6,7 @@ use App\Interfaces\Services\UserServiceInterface;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminProductRemoveRequest extends FormRequest
+class AdminProductDeleteRequest extends FormRequest
 {
     public function __construct(
         private UserServiceInterface $userService
@@ -20,7 +20,7 @@ class AdminProductRemoveRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id" => "numeric|max:1000000"
+            "id" => "numeric|digits:10"
         ];
     }
     protected function failedValidation(Validator $validator)

@@ -18,12 +18,12 @@ class ProductSearchRequest extends FormRequest
         return [
             "title" => "max:50" , 
             "description" => "string|max:300" , 
-            "price" => "numeric|max:1000000000" ,
-            "category" => "nullable|numeric|max:10000000" ,
+            "price" => "numeric|max:digits:10" ,
+            "category" => "nullable|numeric|digits:7" ,
             "min_price" => "numeric" ,
             "max_price" => "numeric" ,
             "order" => "string" ,
-            "part" => "required|numeric|max:100000" ,
+            "part" => "required|numeric|digits:6" ,
             "limit" => "required|numeric|max:50"
         ];
     }

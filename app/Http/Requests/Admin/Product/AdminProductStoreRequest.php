@@ -24,10 +24,10 @@ class AdminProductStoreRequest extends FormRequest
             "title" => "required|string|max:50|unique:products" , 
             "description" => "required|string|max:300" , 
             "image_url" => "required|url",
-            "price" => "required|numeric|max:1000000000" ,
-            "products_count" => "required|numeric|max:1000000" ,
-            "sales_count" => "required|numeric|max:10000000" ,
-            "category_id" => "nullable|numeric|max:10000000|exist:categories,id" ,
+            "price" => "required|numeric|digits:10" ,
+            "products_count" => "required|numeric|digits:10" ,
+            "sales_count" => "required|numeric|digits:10" ,
+            "category_id" => "nullable|numeric|digits:10|exist:categories,id" ,
         ];
     }
 
