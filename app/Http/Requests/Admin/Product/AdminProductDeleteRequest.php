@@ -20,7 +20,7 @@ class AdminProductDeleteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id" => "numeric|digits:10"
+            "id" => "numeric|digits_between:1,10"
         ];
     }
     protected function failedValidation(Validator $validator)

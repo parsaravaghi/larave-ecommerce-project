@@ -21,14 +21,14 @@ class AdminProductUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id" => "required|numeric|digits:10" ,
+            "id" => "required|numeric|digits_between:1,10" ,
             "title" => "string|max:50|unique:products" , 
             "description" => "string|max:300" , 
             "image_url" => "url",
-            "price" => "numeric|digits:10" ,
-            "products_count" => "numeric|m" ,
-            "sales_count" => "numeric|digits:10" ,
-            "category_id" => "numeric|nullable|digits:10" ,
+            "price" => "numeric|digits_between:1,10" ,
+            "products_count" => "numeric|digits_between:1,10" ,
+            "sales_count" => "numeric|digits_between:1,10" ,
+            "category_id" => "numeric|nullable|digits_between:1,10" ,
         ];
     }
 
