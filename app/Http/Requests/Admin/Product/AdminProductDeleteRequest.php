@@ -5,6 +5,8 @@ namespace App\Http\Requests\Admin\Product;
 use App\Interfaces\Services\UserServiceInterface;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AdminProductDeleteRequest extends FormRequest
 {
@@ -30,5 +32,7 @@ class AdminProductDeleteRequest extends FormRequest
             "errors" => $validator->errors()  ,
             "data" => null 
         ]);
+
+        throw new HttpResponseException($response);
     }
 }

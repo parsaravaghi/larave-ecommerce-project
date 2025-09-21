@@ -1,43 +1,43 @@
 <?php
 
-namespace App\Http\Requests\Admin\Product;
+namespace App\Http\Requests\Admin\Category;
 
 use App\Interfaces\Services\UserServiceInterface;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdminProductStoreRequest extends FormRequest
+class AdminCategoryDeleteRequest extends FormRequest
 {
     public function __construct(
         private UserServiceInterface $userService
-    ){}
+    ) {}
 
     public function authorize(): bool
     {
         return $this->userService->isUserAdmin();
     }
 
+
     public function rules(): array
     {
         return [
-            "title" => "required|string|max:50|unique:products" , 
-            "description" => "required|string|max:300" , 
-            "image_url" => "required|url",
-            "price" => "required|numeric|digits_between:1,10" ,
-            "products_count" => "required|numeric|digits_between:1,10" ,
-            "sales_count" => "required|numeric|digits_between:1,10" ,
-            "category_id" => "nullable|numeric|digits_between:1,10|exists:categories,id" ,
+            "id" => "numeric|digits_between:1,10|exists:categories|unique:categories,parent_id"
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->replace(["id" => $this->route('id')]);
     }
 
     protected function failedValidation(Validator $validator)
     {
         $response = response()->json([
-            "success" =>  false ,
+            "success" => false ,
             "errors" => $validator->errors() ,
             "data" => null
-        ] , 401);
+        ] , 406);
 
         throw new HttpResponseException($response);
     }

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Admin\Product;
+namespace App\Http\Requests\Admin\Category;
 
 use App\Interfaces\Services\UserServiceInterface;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdminProductStoreRequest extends FormRequest
+class AdminCategoryStoreRequest extends FormRequest
 {
     public function __construct(
         private UserServiceInterface $userService
@@ -21,29 +21,26 @@ class AdminProductStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => "required|string|max:50|unique:products" , 
-            "description" => "required|string|max:300" , 
-            "image_url" => "required|url",
-            "price" => "required|numeric|digits_between:1,10" ,
-            "products_count" => "required|numeric|digits_between:1,10" ,
-            "sales_count" => "required|numeric|digits_between:1,10" ,
-            "category_id" => "nullable|numeric|digits_between:1,10|exists:categories,id" ,
+            "name" => "required|string|max:20|unique:categories" ,
+            "description" => "required|string|max:100" ,
+            "image_url" => "required|url" ,
+            "parent_id" => "nullable|numeric|digits_between:1,6|exists:categories,id"
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        $response = response()->json([
-            "success" =>  false ,
-            "errors" => $validator->errors() ,
-            "data" => null
-        ] , 401);
-
-        throw new HttpResponseException($response);
     }
 
     protected function failedAuthorization()
     {
         abort(404);
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $response = response()->json([
+            "success" => false , 
+            "errors" => $validator->errors() ,
+            "data" => null
+        ] , 406);
+
+        throw new HttpResponseException($response);
     }
 }
