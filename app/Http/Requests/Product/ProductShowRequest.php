@@ -14,13 +14,14 @@ class ProductShowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id" => "numeric|digits:10"
+            "id" => "numeric|max:10000000"
         ];
     }
 
     public function prepareForValidation()
     {
-        $this->merge([
+        // Replace user route with user data body
+        $this->replace([
             'id' => $this->route('id')
         ]);
     }

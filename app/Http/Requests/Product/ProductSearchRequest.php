@@ -31,10 +31,10 @@ class ProductSearchRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $response = response()->json([
-            "status" => false ,
+            "success" => false ,
             "errors" => $validator->errors() ,
             "data" => null
-        ]);
+        ] , 406);
 
         throw new HttpResponseException($response);
     }
