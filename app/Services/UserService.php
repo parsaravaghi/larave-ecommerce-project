@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Interfaces\Services\UserServiceInterface;
 use App\Models\User;
 
