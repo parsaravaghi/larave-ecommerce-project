@@ -26,7 +26,7 @@ class AdminProductCotroller extends Controller
 
         // Send success message
         return response()->json([
-            "status" => true ,
+            "success" => true ,
             "message" => "Product added successfully" ,
             "product" => $product
         ] , 202);
@@ -42,7 +42,7 @@ class AdminProductCotroller extends Controller
 
         // success response
         return response()->json([
-            "status" => true ,
+            "success" => true ,
             "message" => "$updatedProduct product(s) updated"
         ] , 201);
     }
@@ -53,7 +53,7 @@ class AdminProductCotroller extends Controller
         $deletedProduct = $this->productService->deleteOne($request->route('id'));
 
         return response()->json([
-            "status" => true ,
+            "success" => true ,
             "message" => "$deletedProduct product(s) deleted"
         ] , 201);
     }
