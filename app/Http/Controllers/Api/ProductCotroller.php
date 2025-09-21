@@ -11,7 +11,7 @@ class ProductCotroller extends Controller
 {
     public function __construct(
         private ProductServiceInterface $productService
-    ){}
+    ) {}
 
     public function show(ProductShowRequest $request)
     {
@@ -29,6 +29,7 @@ class ProductCotroller extends Controller
 
     public function search(ProductSearchRequest $request)
     {
+        // Search requested product
         $products = $this->productService->search(
             title: $request->title , 
             description: $request->description ,
@@ -39,8 +40,9 @@ class ProductCotroller extends Controller
             limit: $request->limit
         );
 
+        // Success message
         return response()->json([
-            "status" => true ,
+            "success" => true ,
             "data" => $products
         ]);
     }
