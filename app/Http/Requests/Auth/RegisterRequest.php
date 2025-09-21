@@ -30,22 +30,20 @@ class RegisterRequest extends FormRequest
     }
     protected function failedValidation(Validator $validator)
     {
-        $reponse = response()->json([
+        $response = response()->json([
             "success" => false ,
             "errors" => $validator->errors() ,
             "data" => null
-        ]);
+        ] , 406);
 
-        throw new HttpResponseException($reponse);
+        throw new HttpResponseException($response);
     }
 
     protected function failedAuthorization()
     {
-        $response = response()->json([
+        return response()->json([
             "success" => false ,
             "errors" => ["Authorization" => "You are not Authorized"]
-        ]);
-
-        throw new HttpResponseException($response);
+        ] , 401);
     }
 }

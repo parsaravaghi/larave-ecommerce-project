@@ -41,7 +41,7 @@ class LoginRequest extends FormRequest
     protected function failedAuthorization()
     {
         return response()->json([
-            "status" => false ,
+            "success" => false ,
             "errors" => ["Authorization" => "You are authorized"]
         ] , 409);
     }
